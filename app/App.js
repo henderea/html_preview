@@ -1,6 +1,6 @@
 var React              = require('react');
 
-import { SyncInputText, SyncSelect, SyncTextArea } from './form_controls';
+import { SyncInputText, SyncSelect, SyncTextArea } from './form/controls';
 
 var App = React.createClass({
     getInitialState: function() {

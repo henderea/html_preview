@@ -1,5 +1,5 @@
 var React = require('react');
-var h     = require('./form_helpers');
+var h     = require('./helpers');
 
 exports.SyncInputText = React.createClass({
                                             propTypes:         {

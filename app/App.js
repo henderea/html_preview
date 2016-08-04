@@ -6,9 +6,6 @@ var App = React.createClass({
     getInitialState: function() {
         return {val: ""};
     },
-    valueChanged: function(e) {
-        this.setState({val: e.target.value});
-    },
     render: function() {
         return (
             <table>

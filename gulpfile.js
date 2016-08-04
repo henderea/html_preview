@@ -11,29 +11,32 @@ var concat = require('gulp-concat');
 var cssmin = require('gulp-cssmin');
 var gutil = require('gulp-util');
 var glob = require('glob');
-var livereload = require('gulp-livereload');
-var connect = require('gulp-connect');
+var sass = require('gulp-sass');
+
+var browserSync = require('browser-sync');
+var reload = browserSync.reload;
+var historyApiFallback = require('connect-history-api-fallback');
 
 // External dependencies you do not want to rebundle while developing,
 // but include in your application deployment
 var dependencies = [
-    'react'
+    'react', 'history', 'query-string'
 ];
 
 var browserifyTask = function (options) {
 
   // Our app bundler
-    var appBundler = browserify({
-        entries: [options.src], // Only need initial file, browserify finds the rest
-    transform: [babelify.configure({presets: ['es2015', 'stage-0', 'react']})], // We want to convert JSX to normal javascript
-        debug: options.development, // Gives us sourcemapping
-        cache: {}, packageCache: {}, fullPaths: options.development // Requirement of watchify
-    });
+  var appBundler = browserify({
+      entries: [options.src], // Only need initial file, browserify finds the rest
+  transform: [babelify.configure({presets: ['es2015', 'stage-0', 'react']})], // We want to convert JSX to normal javascript
+      debug: options.development, // Gives us sourcemapping
+      cache: {}, packageCache: {}, fullPaths: options.development // Requirement of watchify
+  });
 
-    // We set our dependencies as externals on our app bundler when developing
-    (options.development ? dependencies : []).forEach(function (dep) {
-        appBundler.external(dep);
-    });
+  // We set our dependencies as externals on our app bundler when developing
+  (options.development ? dependencies : []).forEach(function (dep) {
+      appBundler.external(dep);
+  });
 
   // The rebundle process
   var rebundle = function () {
@@ -44,7 +47,7 @@ var browserifyTask = function (options) {
       .pipe(source('main.js'))
       .pipe(gulpif(!options.development, streamify(uglify())))
       .pipe(gulp.dest(options.dest))
-      .pipe(gulpif(options.development, livereload()))
+      .pipe(gulpif(options.development, reload({stream:true})))
       .pipe(notify(function () {
         console.log('APP bundle built in ' + (Date.now() - start) + 'ms');
       }));
@@ -92,8 +95,10 @@ var cssTask = function (options) {
         var start = new Date();
         console.log('Building CSS bundle');
         gulp.src(options.src)
+          .pipe(sass().on('error', sass.logError))
           .pipe(concat('main.css'))
           .pipe(gulp.dest(options.dest))
+          .pipe(reload({stream:true}))
           .pipe(notify(function () {
             console.log('CSS bundle built in ' + (Date.now() - start) + 'ms');
           }));
@@ -102,6 +107,7 @@ var cssTask = function (options) {
       gulp.watch(options.src, run);
     } else {
       gulp.src(options.src)
+        .pipe(sass().on('error', sass.logError))
         .pipe(concat('main.css'))
         .pipe(cssmin())
         .pipe(gulp.dest(options.dest));
@@ -110,8 +116,6 @@ var cssTask = function (options) {
 
 // Starts our development workflow
 gulp.task('default', function () {
-  livereload.listen();
-
   browserifyTask({
     development: true,
     src: './app/main.js',
@@ -120,14 +124,16 @@ gulp.task('default', function () {
 
   cssTask({
     development: true,
-    src: './styles/**/*.css',
+    src: './styles/**/*.scss',
     dest: './build'
   });
 
-  connect.server({
-    root: 'build/',
-    port: 8889
-  });
+  browserSync({
+        // we need to disable clicks and forms for when we test multiple rooms
+        server : { baseDir: './build/'},
+        middleware : [ historyApiFallback() ],
+        ghostMode: false
+    });
 
 });
 
@@ -143,7 +149,7 @@ gulp.task('deploy', function () {
 
   cssTask({
     development: false,
-    src: './styles/**/*.css',
+    src: './styles/**/*.scss',
     dest: './dist'
   });
 

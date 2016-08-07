@@ -8,3 +8,5 @@ build/main.css
 build/main.js
 build/specs.js
 build/vendors.js
+/.idea/libraries
+/.idea/jsLibraryMappings.xml

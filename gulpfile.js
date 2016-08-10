@@ -20,7 +20,7 @@ var historyApiFallback = require('connect-history-api-fallback');
 // External dependencies you do not want to rebundle while developing,
 // but include in your application deployment
 var dependencies = [
-    'react', 'history', 'query-string'
+    'react', 'react-dom', 'history', 'query-string'
 ];
 
 var browserifyTask = function (options) {

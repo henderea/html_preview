@@ -1,5 +1,17 @@
-var React    = require('react');
-var ReactDOM = require('react-dom');
-import { App } from './App.js';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-ReactDOM.render(<App />, document.querySelector('#main'));
+import { Router, Route } from 'react-router'
+import { browserHistory } from 'react-router';
+
+import { App, Preview, NotFound } from './App.js';
+
+var routes = (
+  <Router history={browserHistory}>
+    <Route path="/preview" component={Preview} />
+    <Route path="/" component={App} />
+    <Route path="*" component={NotFound} />
+  </Router>
+);
+
+ReactDOM.render(routes, document.querySelector('#main'));

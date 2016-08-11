@@ -8,8 +8,8 @@ import { App, Preview, NotFound } from './App.js';
 
 var routes = (
   <Router history={browserHistory}>
-    <Route path="/preview" component={Preview} />
-    <Route path="/" component={App} />
+    <Route path="/html_preview/preview" component={Preview} />
+    <Route path="/html_preview/" component={App} />
     <Route path="*" component={NotFound} />
   </Router>
 );

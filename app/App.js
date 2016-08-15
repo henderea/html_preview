@@ -2,6 +2,8 @@ import React from 'react';
 const queryString = require('query-string');
 import { browserHistory } from 'react-router';
 
+import LZString from 'lz-string'
+
 import { SyncTextArea } from './form/controls';
 
 import autobind from 'autobind-decorator';
@@ -14,11 +16,11 @@ export class App extends React.Component {
   }
 
   valueChanged(field, val) {
-    browserHistory.push({ pathname: this.props.location.pathname, search: ("?" + queryString.stringify({ content: val })) });
+    browserHistory.push({ pathname: this.props.location.pathname, search: ("?" + queryString.stringify({ content: LZString.compressToEncodedURIComponent(val) })) });
   }
 
   componentWillMount() {
-    this.setState({ val: (queryString.parse(this.props.location.search)["content"] || '') });
+    this.setState({ val: LZString.decompressFromEncodedURIComponent(queryString.parse(this.props.location.search)["content"] || '') });
   }
 
   render() {
@@ -30,7 +32,7 @@ export class App extends React.Component {
               <SyncTextArea context={this} field="val" onChange={this.valueChanged} />
             </td>
             <td style={{height: "2em"}} className="half">
-              <a href={`${this.props.location.pathname}preview?${queryString.stringify({ content: this.state.val })}`}  target="_blank">Open Preview</a>
+              <a href={`${this.props.location.pathname}preview?${queryString.stringify({ content: LZString.compressToEncodedURIComponent(this.state.val) })}`}  target="_blank">Open Preview</a>
             </td>
             </tr>
           <tr>
@@ -52,7 +54,7 @@ export class Preview extends React.Component {
         <tbody>
           <tr>
             <td>
-              <div style={{display: "inline-block", textAlign: "left"}} dangerouslySetInnerHTML={{__html: queryString.parse(this.props.location.search)["content"] || "" }} />
+              <div style={{display: "inline-block", textAlign: "left"}} dangerouslySetInnerHTML={{__html: LZString.decompressFromEncodedURIComponent(queryString.parse(this.props.location.search)['content'] || '') }} />
             </td>
           </tr>
         </tbody>

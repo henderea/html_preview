@@ -20,7 +20,7 @@ var historyApiFallback = require('connect-history-api-fallback');
 // External dependencies you do not want to rebundle while developing,
 // but include in your application deployment
 var dependencies = [
-    'react', 'react-dom', 'history', 'query-string'
+    'react', 'react-dom', 'history', 'query-string', 'autobind-decorator', 'lz-string', 'react-router'
 ];
 
 var browserifyTask = function (options) {
@@ -112,7 +112,7 @@ var cssTask = function (options) {
         .pipe(cssmin())
         .pipe(gulp.dest(options.dest));
     }
-}
+};
 
 // Starts our development workflow
 gulp.task('default', function () {
@@ -130,7 +130,12 @@ gulp.task('default', function () {
 
   browserSync({
         // we need to disable clicks and forms for when we test multiple rooms
-        server : { baseDir: './build/'},
+        server : {
+          baseDir: './build/',
+          routes: {
+            '/html_preview/': './build/'
+          }
+        },
         middleware : [ historyApiFallback() ],
         ghostMode: false
     });

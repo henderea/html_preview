@@ -16,11 +16,11 @@ export class App extends React.Component {
   }
 
   valueChanged(field, val) {
-    browserHistory.push({ pathname: this.props.location.pathname, search: ("?" + queryString.stringify({ content: LZString.compressToEncodedURIComponent(val) })) });
+    browserHistory.push({ pathname: this.props.location.pathname, search: ("?" + queryString.stringify({ content: (LZString.compressToBase64(val) || '') })) });
   }
 
   componentWillMount() {
-    this.setState({ val: LZString.decompressFromEncodedURIComponent(queryString.parse(this.props.location.search)["content"] || '') });
+    this.setState({ val: (LZString.decompressFromBase64(queryString.parse(this.props.location.search)["content"] || '') || '') });
   }
 
   render() {
@@ -32,7 +32,7 @@ export class App extends React.Component {
               <SyncTextArea context={this} field="val" onChange={this.valueChanged} />
             </td>
             <td style={{height: "2em"}} className="half">
-              <a href={`${this.props.location.pathname}preview?${queryString.stringify({ content: LZString.compressToEncodedURIComponent(this.state.val) })}`}  target="_blank">Open Preview</a>
+              <a href={`${this.props.location.pathname}preview?${queryString.stringify({ content: (LZString.compressToBase64(this.state.val) || '') })}`}  target="_blank">Open Preview</a>
             </td>
             </tr>
           <tr>
@@ -54,7 +54,7 @@ export class Preview extends React.Component {
         <tbody>
           <tr>
             <td>
-              <div style={{display: "inline-block", textAlign: "left"}} dangerouslySetInnerHTML={{__html: LZString.decompressFromEncodedURIComponent(queryString.parse(this.props.location.search)['content'] || '') }} />
+              <div style={{display: "inline-block", textAlign: "left"}} dangerouslySetInnerHTML={{__html: (LZString.decompressFromBase64(queryString.parse(this.props.location.search)['content'] || '') || '') }} />
             </td>
           </tr>
         </tbody>

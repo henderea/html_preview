@@ -8,7 +8,7 @@ var uglify = require('gulp-uglify');
 var streamify = require('gulp-streamify');
 var notify = require('gulp-notify');
 var concat = require('gulp-concat');
-var cssmin = require('gulp-cssmin');
+var cleanCSS = require('gulp-clean-css');
 var gutil = require('gulp-util');
 var glob = require('glob');
 var sass = require('gulp-sass');
@@ -109,7 +109,7 @@ var cssTask = function (options) {
       gulp.src(options.src)
         .pipe(sass().on('error', sass.logError))
         .pipe(concat('main.css'))
-        .pipe(cssmin())
+        .pipe(cleanCSS())
         .pipe(gulp.dest(options.dest));
     }
 };

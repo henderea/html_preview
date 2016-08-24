@@ -1,6 +1,9 @@
 import React from 'react';
 const queryString = require('query-string');
 import { browserHistory } from 'react-router';
+import { createHistory } from 'history';
+
+const history = createHistory();
 
 import LZString from 'lz-string'
 
@@ -21,6 +24,9 @@ export class App extends React.Component {
 
   componentWillMount() {
     this.setState({ val: (LZString.decompressFromBase64(queryString.parse(this.props.location.search)["content"] || '') || '') });
+    history.listen(location => {
+      this.setState({ val: (LZString.decompressFromBase64(queryString.parse(location.search)["content"] || '') || '') });
+    });
   }
 
   render() {
@@ -31,10 +37,10 @@ export class App extends React.Component {
             <td rowSpan={2} className="half">
               <SyncTextArea context={this} field="val" onChange={this.valueChanged} />
             </td>
-            <td style={{height: "2em"}} className="half">
-              <a href={`${this.props.location.pathname}preview?${queryString.stringify({ content: (LZString.compressToBase64(this.state.val) || '') })}`}  target="_blank">Open Preview</a>
+            <td style={{ height: "2em" }} className="half">
+              <a href={`${this.props.location.pathname}preview?${queryString.stringify({ content: (LZString.compressToBase64(this.state.val) || '') })}`} target="_blank">Open Preview</a>
             </td>
-            </tr>
+          </tr>
           <tr>
             <td className="half">
               <div className="preview" dangerouslySetInnerHTML={{ __html: this.state.val }} />
@@ -48,13 +54,25 @@ export class App extends React.Component {
 
 @autobind
 export class Preview extends React.Component {
+  constructor() {
+    super();
+    this.state = { val: "" };
+  }
+
+  componentWillMount() {
+    this.setState({ val: (LZString.decompressFromBase64(queryString.parse(this.props.location.search)["content"] || '') || '') });
+    history.listen(location => {
+      this.setState({ val: (LZString.decompressFromBase64(queryString.parse(location.search)["content"] || '') || '') });
+    });
+  }
+
   render() {
     return (
       <table>
         <tbody>
           <tr>
             <td>
-              <div style={{display: "inline-block", textAlign: "left"}} dangerouslySetInnerHTML={{__html: (LZString.decompressFromBase64(queryString.parse(this.props.location.search)['content'] || '') || '') }} />
+              <div style={{ display: "inline-block", textAlign: "left" }} dangerouslySetInnerHTML={{ __html: this.state.val }} />
             </td>
           </tr>
         </tbody>

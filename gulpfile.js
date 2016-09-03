@@ -16,6 +16,7 @@ var sass = require('gulp-sass');
 var browserSync = require('browser-sync');
 var reload = browserSync.reload;
 var historyApiFallback = require('connect-history-api-fallback');
+import * as process from 'gulp-util';
 
 // External dependencies you do not want to rebundle while developing,
 // but include in your application deployment
@@ -86,7 +87,7 @@ var browserifyTask = function (options) {
 
   }
 
-}
+};
 
 var cssTask = function (options) {
     if (options.development) {
@@ -137,6 +138,7 @@ gulp.task('default', function () {
           }
         },
         middleware : [ historyApiFallback() ],
+        startPath: '/html_preview/',
         ghostMode: false
     });
 

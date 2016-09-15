@@ -16,7 +16,6 @@ var sass = require('gulp-sass');
 var browserSync = require('browser-sync');
 var reload = browserSync.reload;
 var historyApiFallback = require('connect-history-api-fallback');
-import * as process from 'gulp-util';
 
 // External dependencies you do not want to rebundle while developing,
 // but include in your application deployment

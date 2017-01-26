@@ -1,7 +1,7 @@
 import React from 'react';
 const queryString = require('query-string');
 import { browserHistory } from 'react-router';
-import { createHistory } from 'history';
+import createHistory from 'history/createBrowserHistory'
 
 const history = createHistory();
 
@@ -43,7 +43,7 @@ export class App extends React.Component {
           </tr>
           <tr>
             <td className="half">
-              <div className="preview" dangerouslySetInnerHTML={{ __html: this.state.val }} />
+              <iframe style={{width:'95%',height:'95%',padding:'0',margin:'0',backgroundColor:'white'}} srcDoc={this.state.val} />
             </td>
           </tr>
         </tbody>
@@ -72,7 +72,7 @@ export class Preview extends React.Component {
         <tbody>
           <tr>
             <td>
-              <div style={{ display: "inline-block", textAlign: "left" }} dangerouslySetInnerHTML={{ __html: this.state.val }} />
+              <iframe style={{width:'95%',height:'95%',padding:'0',margin:'0',backgroundColor:'white'}} srcDoc={this.state.val} />
             </td>
           </tr>
         </tbody>

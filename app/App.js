@@ -1,6 +1,5 @@
 import React from 'react';
 const queryString = require('query-string');
-import { browserHistory } from 'react-router';
 import createHistory from 'history/createBrowserHistory'
 
 const history = createHistory();
@@ -19,7 +18,7 @@ export class App extends React.Component {
   }
 
   valueChanged(field, val) {
-    browserHistory.push({ pathname: this.props.location.pathname, search: ("?" + queryString.stringify({ content: (LZString.compressToBase64(val) || '') })) });
+    history.push({ pathname: this.props.location.pathname, search: ("?" + queryString.stringify({ content: (LZString.compressToBase64(val) || '') })) });
   }
 
   componentWillMount() {

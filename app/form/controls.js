@@ -1,15 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import h from './helpers';
 import autobind from 'autobind-decorator';
 
 @autobind
 export class SyncInputText extends React.Component {
   static propTypes = {
-    context:     React.PropTypes.object.isRequired,
-    onChange:    React.PropTypes.func,
-    field:       React.PropTypes.string.isRequired,
-    placeholder: React.PropTypes.string,
-    required:    React.PropTypes.bool
+    context:     PropTypes.object.isRequired,
+    onChange:    PropTypes.func,
+    field:       PropTypes.string.isRequired,
+    placeholder: PropTypes.string,
+    required:    PropTypes.bool
   };
 
   handleValueChange(e) {
@@ -31,10 +32,10 @@ export class SyncInputText extends React.Component {
 @autobind
 export class SyncTextArea extends React.Component {
   static propTypes = {
-    context:     React.PropTypes.object.isRequired,
-    onChange:    React.PropTypes.func,
-    field:       React.PropTypes.string.isRequired,
-    placeholder: React.PropTypes.string
+    context:     PropTypes.object.isRequired,
+    onChange:    PropTypes.func,
+    field:       PropTypes.string.isRequired,
+    placeholder: PropTypes.string
   };
 
   handleValueChange(e) {
@@ -56,10 +57,10 @@ export class SyncTextArea extends React.Component {
 @autobind
 export class SyncSelect extends React.Component {
   static propTypes = {
-    context:  React.PropTypes.object.isRequired,
-    onChange: React.PropTypes.func,
-    field:    React.PropTypes.string.isRequired,
-    options:  React.PropTypes.objectOf(React.PropTypes.string).isRequired
+    context:  PropTypes.object.isRequired,
+    onChange: PropTypes.func,
+    field:    PropTypes.string.isRequired,
+    options:  PropTypes.objectOf(PropTypes.string).isRequired
   };
 
   handleValueChange(e) {

@@ -1,17 +1,16 @@
-import React from 'react';
-const queryString = require('query-string');
+import React, { Component } from 'react';
 import createHistory from 'history/createBrowserHistory'
-
-const history = createHistory();
 
 import LZString from 'lz-string'
 
 import { SyncTextArea } from './form/controls';
 
-import autobind from 'autobind-decorator';
+const queryString = require('query-string');
+const history = createHistory();
 
-@autobind
-export class App extends React.Component {
+
+
+export class App extends Component {
   constructor() {
     super();
     this.state = { val: "" };
@@ -34,15 +33,15 @@ export class App extends React.Component {
         <tbody>
           <tr>
             <td rowSpan={2} className="half">
-              <SyncTextArea context={this} field="val" onChange={this.valueChanged} />
+              <SyncTextArea context={this} field="val" onChange={this.valueChanged.bind(this)} />
             </td>
             <td style={{ height: "2em" }} className="half">
-              <a href={`${this.props.location.pathname}preview?${queryString.stringify({ content: (LZString.compressToBase64(this.state.val) || '') })}`} target="_blank">Open Preview</a>
+              <a href={`${this.props.location.pathname}preview?${queryString.stringify({ content: (LZString.compressToBase64(this.state.val) || '') })}`} target="_blank" rel="noopener noreferrer">Open Preview</a>
             </td>
           </tr>
           <tr>
             <td className="half">
-              <iframe style={{width:'95%',height:'95%',padding:'0',margin:'0',backgroundColor:'white'}} srcDoc={this.state.val} />
+              <iframe style={{width:'95%',height:'95%',padding:'0',margin:'0',backgroundColor:'white'}} title="preview" srcDoc={this.state.val} />
             </td>
           </tr>
         </tbody>
@@ -51,8 +50,7 @@ export class App extends React.Component {
   }
 }
 
-@autobind
-export class Preview extends React.Component {
+export class Preview extends Component {
   constructor() {
     super();
     this.state = { val: "" };
@@ -71,7 +69,7 @@ export class Preview extends React.Component {
         <tbody>
           <tr>
             <td>
-              <iframe style={{width:'95%',height:'95%',padding:'0',margin:'0',backgroundColor:'white'}} srcDoc={this.state.val} />
+              <iframe style={{width:'95%',height:'95%',padding:'0',margin:'0',backgroundColor:'white'}} title="full preview" srcDoc={this.state.val} />
             </td>
           </tr>
         </tbody>
@@ -80,7 +78,7 @@ export class Preview extends React.Component {
   }
 }
 
-export class NotFound extends React.Component {
+export class NotFound extends Component {
   render() {
     return (
       <h1>Not Found</h1>

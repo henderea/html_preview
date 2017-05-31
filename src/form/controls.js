@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import h from './helpers';
-import autobind from 'autobind-decorator';
 
-@autobind
 export class SyncInputText extends React.Component {
   static propTypes = {
     context:     PropTypes.object.isRequired,
@@ -24,12 +22,11 @@ export class SyncInputText extends React.Component {
   render() {
     return (
       <input type="text" ref={this.props.field} placeholder={this.props.placeholder} value={h.getValueFromState(this.props.context.state, this.props.field)}
-             onChange={this.handleValueChange} required={this.props.required} />
+             onChange={this.handleValueChange.bind(this)} required={this.props.required} />
     );
   }
 }
 
-@autobind
 export class SyncTextArea extends React.Component {
   static propTypes = {
     context:     PropTypes.object.isRequired,
@@ -49,12 +46,11 @@ export class SyncTextArea extends React.Component {
   render() {
     return (
       <textarea type="text" ref={this.props.field} placeholder={this.props.placeholder} value={h.getValueFromState(this.props.context.state, this.props.field)}
-                onChange={this.handleValueChange} />
+                onChange={this.handleValueChange.bind(this)} />
     );
   }
 }
 
-@autobind
 export class SyncSelect extends React.Component {
   static propTypes = {
     context:  PropTypes.object.isRequired,
@@ -79,8 +75,8 @@ export class SyncSelect extends React.Component {
 
   render() {
     return (
-      <select ref={this.props.field} value={h.getValueFromState(this.props.context.state, this.props.field)} onChange={this.handleValueChange}>
-        {Object.keys(this.props.options).map(this.makeOption)}
+      <select ref={this.props.field} value={h.getValueFromState(this.props.context.state, this.props.field)} onChange={this.handleValueChange.bind(this)}>
+        {Object.keys(this.props.options).map(this.makeOption.bind(this))}
       </select>
     );
   }

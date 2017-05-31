@@ -3,7 +3,7 @@ html, body {
     height: 100%;
     margin: 0;
 }
-textarea, #main, table {
+textarea, #root, table {
     width: 100%;
     height: 100%;
 }

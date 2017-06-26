@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "/html_preview/",
   "dependencies": {
-    "history": "^4.6.2",
+    "history": "^4.6.3",
     "lz-string": "^1.4.4",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",

@@ -1,0 +1,9 @@
+{
+    "ignore": [
+        "**/node_modules/**",
+        "src/registerServiceWorker.js"
+    ],
+    "critics": {
+        "lint": { "engine": "eslint" }
+    }
+}

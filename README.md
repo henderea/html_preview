@@ -1,4 +1,8 @@
 # html_preview
+[![bitHound Overall Score](https://www.bithound.io/github/henderea/html_preview/badges/score.svg)](https://www.bithound.io/github/henderea/html_preview)
+[![bitHound Dependencies](https://www.bithound.io/github/henderea/html_preview/badges/dependencies.svg)](https://www.bithound.io/github/henderea/html_preview/master/dependencies/npm)
+[![bitHound Dev Dependencies](https://www.bithound.io/github/henderea/html_preview/badges/devDependencies.svg)](https://www.bithound.io/github/henderea/html_preview/master/dependencies/npm)
+[![bitHound Code](https://www.bithound.io/github/henderea/html_preview/badges/code.svg)](https://www.bithound.io/github/henderea/html_preview)
 
 A React app that gives you an instant preview of any HTML code.
 

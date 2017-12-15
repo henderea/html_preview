@@ -1,4 +1,4 @@
-#html_preview
+# html_preview
 
 A React app that gives you an instant preview of any HTML code.
 
@@ -9,13 +9,13 @@ $ npm install
 ```
 and then
 ```shell
-$ gulp
+$ npm start
 ```
 to open it up in a web server, or
 ```shell
-$ gulp deploy
+$ npm run build
 ```
-to build the files (found in dist/)
+to build the files (found in build/)
 
 ## Examples:
 

@@ -3,6 +3,9 @@
         "**/node_modules/**",
         "src/registerServiceWorker.js"
     ],
+    "test": [
+        "src/App.test.js"
+    ],
     "critics": {
         "lint": { "engine": "eslint" }
     }

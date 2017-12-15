@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import createHistory from 'history/createBrowserHistory';
 
 import LZString from 'lz-string';

@@ -3,6 +3,7 @@
   "version": "1.0.6",
   "private": true,
   "homepage": "/html_preview/",
+  "license": "MIT",
   "dependencies": {
     "history": "^4.7.2",
     "lz-string": "^1.4.4",

@@ -9,15 +9,15 @@ A React app that gives you an instant preview of any HTML code.
 ## Building/running
 Run
 ```shell
-$ npm install
+$ yarn
 ```
 and then
 ```shell
-$ npm start
+$ yarn start
 ```
 to open it up in a web server, or
 ```shell
-$ npm run build
+$ yarn build
 ```
 to build the files (found in build/)
 
